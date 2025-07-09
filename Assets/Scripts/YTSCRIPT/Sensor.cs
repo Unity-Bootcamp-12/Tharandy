@@ -4,15 +4,17 @@ using UnityEngine;
 public class Sensor : MonoBehaviour, IDetectable
 {
     private Rigidbody rb;
+    [SerializeField] private float RPM;
 
     private void Awake()
     {
+        RPM = 5f;
         rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        transform.Rotate(new Vector3(0, 360 * Time.deltaTime, 0));
+        transform.Rotate(new Vector3(0, 360 * Time.deltaTime * RPM, 0));
     }
 
     public Vector3 Scan()
