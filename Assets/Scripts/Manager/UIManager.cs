@@ -12,10 +12,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _buttonSettings;
     [SerializeField] private GameObject _fadeinPanel;
     [SerializeField] private GameObject _gameTitleCanvas;
-    [SerializeField] private GameObject _Anamo;
     [SerializeField] private GameObject _babyThanos;
+    [SerializeField] private GameObject _curtains;
+    [SerializeField] private GameObject _titleMainPanel;
+    [SerializeField] private Animator _curtainsAnimator;
 
     private float _fadeDuration = 2.0f;
+    readonly int _curtainOpenTrigger = Animator.StringToHash("CurtainOpen");
+    readonly int _curtainCloseTrigger = Animator.StringToHash("CurtainClose");
+
 
     private void Awake()
     {
@@ -59,27 +64,47 @@ public class UIManager : MonoBehaviour
             _buttonSettings.onClick.AddListener(OnSettingsButtonClick);
         }
 
+        if (_titleMainPanel == null)
+        {
+            _titleMainPanel = GameObject.Find("TitleMainPanel");
+        }
+
         if (_babyThanos == null)
         {
             _babyThanos = GameObject.Find("BabyThanos");
         }
 
-        if (_Anamo == null)
+        if (_curtains == null)
         {
-            _Anamo = GameObject.Find("Anamo");
+            _curtains = GameObject.Find("Curtains");
+        }   
+
+        if (_curtainsAnimator == null)
+        {
+            _curtainsAnimator = GameObject.Find("Curtains").GetComponent<Animator>();
         }
     }
 
     public void OnStartButtonClick()
     {
-        StartCoroutine(C_FadeInAndStartGame());
+        _titleMainPanel.SetActive(false);
+        _curtainsAnimator.SetTrigger(_curtainOpenTrigger);
+
+        StartCoroutine(WaitForCurtainAnimationAndStartGame());
+    }
+
+    private IEnumerator WaitForCurtainAnimationAndStartGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        yield return StartCoroutine(C_FadeInAndStartGame());
     }
 
     private IEnumerator C_FadeInAndStartGame()
     {
         Image fadeImage = _fadeinPanel.GetComponent<Image>();
         Color color = fadeImage.color;
-        color.a = 0f; // 시작은 완전 투명
+        color.a = 0f;
         fadeImage.color = color;
 
         float elapsedTime = 0f;
@@ -87,7 +112,7 @@ public class UIManager : MonoBehaviour
         while (elapsedTime < _fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsedTime / _fadeDuration); // 0~1 사이로 보정
+            float alpha = Mathf.Clamp01(elapsedTime / _fadeDuration);
             color.a = alpha;
             fadeImage.color = color;
             yield return null;
@@ -99,9 +124,15 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         _gameTitleCanvas.SetActive(false);
 
-        // 오브젝트 파괴 (필요시)
-        if (_babyThanos != null) Destroy(_babyThanos);
-        if (_Anamo != null) Destroy(_Anamo);
+        if (_babyThanos != null)
+        {
+            Destroy(_babyThanos);
+        }
+
+        if (_curtains != null)
+        {
+            Destroy(_curtains);
+        }
     }
 
     public void OnQuitButtonClick()
