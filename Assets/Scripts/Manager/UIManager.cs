@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,10 +21,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _titleMainPanel;
 
     [SerializeField] private Animator _curtainsAnimator;
+    [SerializeField] private Animator _thanosAnimator;
 
     private float _fadeDuration = 2.0f;
     readonly int _curtainOpenTrigger = Animator.StringToHash("CurtainOpen");
     readonly int _curtainCloseTrigger = Animator.StringToHash("CurtainClose");
+    readonly int _thanosDanceBoolean = Animator.StringToHash("IsDancing");
+    readonly int _thanosAyaTrigger = Animator.StringToHash("Thanos_Aya");
+    readonly int _thanosFingersnapTrigger = Animator.StringToHash("Thanos_Fingersnap");
 
 
     private void Awake()
@@ -83,9 +88,14 @@ public class UIManager : MonoBehaviour
             _curtains = GameObject.Find("Curtains");
         }   
 
-        if (_curtainsAnimator == null)
+        if (_curtainsAnimator == null && _curtains != null)
         {
-            _curtainsAnimator = GameObject.Find("Curtains").GetComponent<Animator>();
+            _curtainsAnimator = _curtains.GetComponent<Animator>();
+        }
+
+        if (_thanosAnimator == null && _babyThanos != null)
+        {
+            _thanosAnimator = _babyThanos.GetComponent<Animator>();
         }
     }
 
@@ -93,6 +103,7 @@ public class UIManager : MonoBehaviour
     {
         _titleMainPanel.SetActive(false);
         _curtainsAnimator.SetTrigger(_curtainOpenTrigger);
+        _thanosAnimator.SetBool(_thanosDanceBoolean, true);
 
         StartCoroutine(WaitForCurtainAnimationAndStartGame());
     }
@@ -130,7 +141,8 @@ public class UIManager : MonoBehaviour
 
         if (_babyThanos != null)
         {
-            Destroy(_babyThanos);
+            _thanosAnimator.SetBool(_thanosDanceBoolean, false);
+            _babyThanos.SetActive(false);
         }
 
         if (_curtains != null)
@@ -140,7 +152,6 @@ public class UIManager : MonoBehaviour
 
         Camera.main.transform.position = new Vector3(0, 0, -7);
         _gameManagerObject.SetActive(true);
-        //GameManager.Instance.StartGame();
     }
 
     public void OnQuitButtonClick()
