@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     // 나중에 Generater로 분리할 것들
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemySpawnPointPrefab;
+    [SerializeField] private GameObject _inGame;
 
     [SerializeField] private TextChangeUI _timerUI;
     [SerializeField] private TextChangeUI _countDownUI;
@@ -50,9 +51,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _inGame.SetActive(true);
         _activeEnemyList = new Enemy[_enemySpawnPointCount];
         _gamePlayCoroutine = StartCoroutine(GamePlayCoroutine());
-        
+
         _timerUI.gameObject.SetActive(false);
         _countDownUI.gameObject.SetActive(false);
         _scoreUI.gameObject.SetActive(false);
@@ -142,7 +144,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
-        { 
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
@@ -193,9 +195,9 @@ public class GameManager : MonoBehaviour
         GenerateSpawnPoint();
 
         _countDownUI.gameObject.SetActive(false);
-        
+
         yield return new WaitForSeconds(1f);
-        
+
         _timerUI.gameObject.SetActive(true);
         _scoreUI.gameObject.SetActive(true);
         _spawnEnemyCoroutine = StartCoroutine(SpawnEnemyCoroutine());

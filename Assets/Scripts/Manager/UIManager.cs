@@ -7,14 +7,18 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    [SerializeField] private GameObject _gameManagerObject; // 인스펙터에서 무조건 연결
+
     [SerializeField] private Button _buttonStart;
     [SerializeField] private Button _buttonQuit;
     [SerializeField] private Button _buttonSettings;
+
     [SerializeField] private GameObject _fadeinPanel;
     [SerializeField] private GameObject _gameTitleCanvas;
     [SerializeField] private GameObject _babyThanos;
     [SerializeField] private GameObject _curtains;
     [SerializeField] private GameObject _titleMainPanel;
+
     [SerializeField] private Animator _curtainsAnimator;
 
     private float _fadeDuration = 2.0f;
@@ -133,6 +137,10 @@ public class UIManager : MonoBehaviour
         {
             Destroy(_curtains);
         }
+
+        Camera.main.transform.position = new Vector3(0, 0, -7);
+        _gameManagerObject.SetActive(true);
+        //GameManager.Instance.StartGame();
     }
 
     public void OnQuitButtonClick()
