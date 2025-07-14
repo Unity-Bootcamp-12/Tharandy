@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemySpawnPointPrefab;
     [SerializeField] private GameObject _inGame;
+    [SerializeField] private Transform _spawnPosition;
 
     [SerializeField] private TextChangeUI _timerUI;
     [SerializeField] private TextChangeUI _countDownUI;
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
             if (canSpawn)
             {
                 Transform spawnPoint = Instantiate(_enemySpawnPointPrefab).transform;
-                spawnPoint.position = new Vector3(x, y, 0f);
+                spawnPoint.position = new Vector3(x, y, _spawnPosition.position.z);
                 _enemySpawnPointList.Add(spawnPoint);
             }
         }
