@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,19 +8,27 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    [SerializeField] private GameObject _gameManagerObject; // 인스펙터에서 무조건 연결
+
     [SerializeField] private Button _buttonStart;
     [SerializeField] private Button _buttonQuit;
     [SerializeField] private Button _buttonSettings;
+
     [SerializeField] private GameObject _fadeinPanel;
     [SerializeField] private GameObject _gameTitleCanvas;
     [SerializeField] private GameObject _babyThanos;
     [SerializeField] private GameObject _curtains;
     [SerializeField] private GameObject _titleMainPanel;
+
     [SerializeField] private Animator _curtainsAnimator;
+    [SerializeField] private Animator _thanosAnimator;
 
     private float _fadeDuration = 2.0f;
     readonly int _curtainOpenTrigger = Animator.StringToHash("CurtainOpen");
     readonly int _curtainCloseTrigger = Animator.StringToHash("CurtainClose");
+    readonly int _thanosDanceBoolean = Animator.StringToHash("IsDancing");
+    readonly int _thanosAyaTrigger = Animator.StringToHash("Thanos_Aya");
+    readonly int _thanosFingersnapTrigger = Animator.StringToHash("Thanos_Fingersnap");
 
 
     private void Awake()
@@ -79,14 +88,20 @@ public class UIManager : MonoBehaviour
             _curtains = GameObject.Find("Curtains");
         }   
 
-        if (_curtainsAnimator == null)
+        if (_curtainsAnimator == null && _curtains != null)
         {
-            _curtainsAnimator = GameObject.Find("Curtains").GetComponent<Animator>();
+            _curtainsAnimator = _curtains.GetComponent<Animator>();
+        }
+
+        if (_thanosAnimator == null && _babyThanos != null)
+        {
+            _thanosAnimator = _babyThanos.GetComponent<Animator>();
         }
     }
 
     public void OnStartButtonClick()
     {
+        _thanosAnimator.SetBool(_thanosDanceBoolean, true);
         _titleMainPanel.SetActive(false);
         _curtainsAnimator.SetTrigger(_curtainOpenTrigger);
 
@@ -126,13 +141,17 @@ public class UIManager : MonoBehaviour
 
         if (_babyThanos != null)
         {
-            Destroy(_babyThanos);
+            _thanosAnimator.SetBool(_thanosDanceBoolean, false);
+            _babyThanos.SetActive(false);
         }
 
         if (_curtains != null)
         {
             Destroy(_curtains);
         }
+
+        Camera.main.transform.position = new Vector3(0, 0, -7);
+        _gameManagerObject.SetActive(true);
     }
 
     public void OnQuitButtonClick()
