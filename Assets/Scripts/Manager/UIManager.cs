@@ -101,9 +101,9 @@ public class UIManager : MonoBehaviour
 
     public void OnStartButtonClick()
     {
+        _thanosAnimator.SetBool(_thanosDanceBoolean, true);
         _titleMainPanel.SetActive(false);
         _curtainsAnimator.SetTrigger(_curtainOpenTrigger);
-        _thanosAnimator.SetBool(_thanosDanceBoolean, true);
 
         StartCoroutine(WaitForCurtainAnimationAndStartGame());
     }
