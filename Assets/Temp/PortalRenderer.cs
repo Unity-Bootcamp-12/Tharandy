@@ -6,11 +6,12 @@ public class PortalRenderer : MonoBehaviour
 {
     [SerializeField] private Sprite[] _sprites;
     [SerializeField] private GameObject _thanos;
-    [SerializeField] private float _appearanceDuration = 3.0f;
+    [SerializeField] private float _appearanceDuration = 1.0f;
 
     private SpriteRenderer _spriteRenderer;
     private int index;
     private bool _isStart = true;
+    private Transform StartPosition;
 
     private Animator _animator;
 
@@ -22,12 +23,12 @@ public class PortalRenderer : MonoBehaviour
         index = 0;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = _thanos.GetComponent<Animator>();
+        StartPosition = _thanos.transform;
     }
 
     private void Start()
     {
         index++;
-
         if (index >= _sprites.Length)
         {
             index = 0;
@@ -41,7 +42,9 @@ public class PortalRenderer : MonoBehaviour
     {
         index = 0;
         //_thanos.SetActive(true);
-        _thanos.transform.position = this.transform.position;
+        _thanos.transform.position = StartPosition.position;
+        _thanos.transform.rotation = StartPosition.rotation;
+
         StartCoroutine(AppearanceThanos());
         _isStart = true;
         if (_spriteRenderer == null)
@@ -79,7 +82,7 @@ public class PortalRenderer : MonoBehaviour
             _animator.SetBool(_thanos_Appearance, true);
         }
 
-        Vector3 startPos = this.transform.position;
+        Vector3 startPos = StartPosition.position;
         Vector3 targetPos = startPos + new Vector3(0, 0, -1.0f);
 
         float elapsed = 0f;

@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         Enemy enemy = GetEnemyFromPool();
         enemy.gameObject.SetActive(true);
         enemy.transform.position = _enemySpawnPointList[spawnPointIndex].position;
+        Debug.Log($"enemy : {enemy.transform.position}");
         _activeEnemyList[spawnPointIndex] = enemy;
         enemy.SpawnPointIndex = spawnPointIndex;
 
