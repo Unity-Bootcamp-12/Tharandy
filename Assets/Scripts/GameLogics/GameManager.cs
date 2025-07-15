@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
     private int _currentLife;
     private int _score;
 
+    [Header("Ending")] 
+    [SerializeField] private EndingManager _endingManager;
+
+    private bool _isLose = false;
     private void Start()
     {
         _inGame.SetActive(true);
@@ -165,8 +169,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameLose()
-    { 
-        //여기에 패배 시 처리 구현
+    {
+        if (_isLose)
+        {
+            return;
+        }
+
+        _isLose = true;
+        _endingManager.GameLose();
+        StopCoroutine(_spawnEnemyCoroutine);
     }
 
     private void Update()
@@ -254,7 +265,8 @@ public class GameManager : MonoBehaviour
             _timerUI.SetText(i.ToString());
             yield return new WaitForSeconds(1f);
         }
-
+        
+        _endingManager.GameWin();
         StopCoroutine(_spawnEnemyCoroutine);
     }
 }
