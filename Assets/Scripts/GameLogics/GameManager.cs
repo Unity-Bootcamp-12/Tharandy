@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextChangeUI _timerUI;
     [SerializeField] private TextChangeUI _countDownUI;
     [SerializeField] private TextChangeUI _scoreUI;
+    [SerializeField] private LifeUI _lifeUI;
 
     [SerializeField] private Vector2 _enemySpawnRangeX = new(-4.5f, 4.5f);
     [SerializeField] private Vector2 _enemySpawnRangeY = new(-2.0f, 2.0f);
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _enemySpawnPointCount = 12;
     [SerializeField] private float _enemySpawnInterval = 1.4f;
     [SerializeField] private int _playTime = 60;
+    [SerializeField] private int _maxLife = 3;
 
     private List<Enemy> _enemyPool = new();
     private List<Transform> _enemySpawnPointList = new();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     private Coroutine _spawnEnemyCoroutine;
     private Coroutine _gamePlayCoroutine;
 
+    private int _currentLife;
     private int _score;
 
     private void Start()
@@ -59,6 +62,11 @@ public class GameManager : MonoBehaviour
         _timerUI.gameObject.SetActive(false);
         _countDownUI.gameObject.SetActive(false);
         _scoreUI.gameObject.SetActive(false);
+        _lifeUI.gameObject.SetActive(false);
+        _lifeUI.SetUI(_maxLife, _maxLife);
+
+        _score = 0;
+        _currentLife = _maxLife;
     }
 
     private void GenerateSpawnPoint()
@@ -145,6 +153,22 @@ public class GameManager : MonoBehaviour
         _scoreUI.SetText(_score.ToString());
     }
 
+    public void ReduceLife()
+    {
+        _currentLife--;
+        if (_currentLife <= 0)
+        {
+            GameLose();
+        }
+
+        _lifeUI.SetUI(_maxLife, _currentLife);
+    }
+
+    public void GameLose()
+    { 
+        //여기에 패배 시 처리 구현
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -222,6 +246,7 @@ public class GameManager : MonoBehaviour
 
         _timerUI.gameObject.SetActive(true);
         _scoreUI.gameObject.SetActive(true);
+        _lifeUI.gameObject.SetActive(true);
         _spawnEnemyCoroutine = StartCoroutine(SpawnEnemyCoroutine());
 
         for (int i = _playTime; i >= 0; i--)
