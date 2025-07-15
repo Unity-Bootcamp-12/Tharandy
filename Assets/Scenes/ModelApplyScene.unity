@@ -1612,7 +1612,7 @@ MonoBehaviour:
   _enemySpawnRangeX: {x: -9, y: 9}
   _enemySpawnRangeY: {x: -4, y: 4}
   _enemySpawnPointCount: 12
-  _enemySpawnInterval: 1.4
+  _enemySpawnInterval: 3
   _playTime: 60
 --- !u!1 &1252050679
 GameObject:

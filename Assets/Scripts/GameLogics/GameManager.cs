@@ -105,11 +105,11 @@ public class GameManager : MonoBehaviour
     public bool GenerateEnemy(int spawnPointIndex)
     {
         Enemy enemy = GetEnemyFromPool();
-        enemy.gameObject.SetActive(true);
         enemy.transform.position = _enemySpawnPointList[spawnPointIndex].position;
         Debug.Log($"enemy : {enemy.transform.position}");
         _activeEnemyList[spawnPointIndex] = enemy;
         enemy.SpawnPointIndex = spawnPointIndex;
+        enemy.gameObject.SetActive(true);
 
         return true;
     }
@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
 
         returnEnemy = _enemyPool[0];
         _enemyPool.Remove(returnEnemy);
+
+        returnEnemy.gameObject.SetActive(false);
 
         return returnEnemy;
     }
@@ -156,6 +158,24 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Time.timeScale = 1.0f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Time.timeScale = 2.0f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Time.timeScale = 3.0f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Time.timeScale = 0.5f;
+        }
+
     }
 
     private IEnumerator SpawnEnemyCoroutine()
@@ -164,7 +184,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(_enemySpawnInterval);
 
-            int spawnCount = Random.Range(1, 4);
+            int spawnCount = Random.Range(1, 3);
 
             for (int n = 0; n < spawnCount; n++)
             {
