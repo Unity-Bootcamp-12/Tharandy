@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 {
     readonly int APPEARANCE_ANIMATION = Animator.StringToHash("IsAppearance");
     readonly int PUNCHING_ANIMATION = Animator.StringToHash("IsPunching");
+    readonly int HIT_ANIMATION = Animator.StringToHash("IsHit");
 
     [SerializeField] private int _enemyScore = 100;
     [SerializeField] private Transform _enemyModel;
@@ -56,6 +57,18 @@ public class Enemy : MonoBehaviour
             StopCoroutine(_currentCoroutine);
             _currentCoroutine = null;
         }
+
+        _currentCoroutine = StartCoroutine(HitCoroutine());
+    }
+
+    private IEnumerator HitCoroutine()
+    {
+        if (_modelAnimator != null)
+        {
+            _modelAnimator.SetTrigger(HIT_ANIMATION);
+            yield return new WaitForSeconds(_modelAnimator.GetCurrentAnimatorStateInfo(0).length);
+        }
+
         GameManager.Instance.ReturnEnemyToPool(this);
         GameManager.Instance.AddScore(_enemyScore);
     }
@@ -68,11 +81,12 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 startPosition = _startPosition;
-        Vector3 targetPosition = startPosition + new Vector3(0, 0, -1.0f);
+        Vector3 targetPosition = startPosition + new Vector3(0, 0, -3.0f);
 
         float elapsed = 0f;
         while (elapsed < _appearanceDuration)
         {
+            _enemyModel.LookAt(Camera.main.transform.position, Vector3.up);
             _enemyModel.position = Vector3.Lerp(startPosition, targetPosition, elapsed / _appearanceDuration);
             elapsed += Time.deltaTime;
             yield return null;

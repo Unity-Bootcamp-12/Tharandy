@@ -259,7 +259,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7840496582578208119}
@@ -338,8 +338,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.3344264}
-  m_Center: {x: 0, y: 0, z: -0.16721323}
+  m_Size: {x: 1, y: 1.7106967, z: 1.3344264}
+  m_Center: {x: 0, y: 0.53786576, z: -0.16721323}
 --- !u!114 &967070840039917308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyScore: 100
   _enemyModel: {fileID: 3386378789954279008}
-  _appearanceDuration: 2
+  _appearanceDuration: 3
   _punchingDuration: 1.5
 --- !u!1001 &1985495835418131480
 PrefabInstance:
@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2964123243315439749, guid: 32baeb98cd055d84ba0d6d1cc7dda85e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.1
+      value: -0.235
       objectReference: {fileID: 0}
     - target: {fileID: 2964123243315439749, guid: 32baeb98cd055d84ba0d6d1cc7dda85e, type: 3}
       propertyPath: m_LocalRotation.w
