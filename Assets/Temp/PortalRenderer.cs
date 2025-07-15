@@ -1,39 +1,63 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class PortalRenderer : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
-    [SerializeField] private Sprite[] _sprites; 
+    [SerializeField] private Sprite[] _sprites;
 
-    private int index;
+    private SpriteRenderer _spriteRenderer;
+    private int _index;
+    private bool _isStart = true;
 
     private void Awake()
     {
-        index = 0;
+        _index = 0;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        index++;
-
-        if (index >= _sprites.Length)
+        _index++;
+        if (_index >= _sprites.Length)
         {
-            index = 0;
+            _index = 0;
         }
-        
-        _spriteRenderer.sprite = _sprites[index];
+
+        _spriteRenderer.sprite = _sprites[_index];
+        _isStart = false;
     }
+
+    private void OnEnable()
+    {
+        _index = 0;
+        _isStart = true;
+
+        if (_spriteRenderer == null)
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        if (_sprites.Length > 0)
+        {
+            _spriteRenderer.sprite = _sprites[_index];
+        }
+        _isStart = false;
+    }
+
     private void Update()
     {
-        index++;
- 
-        if (index >= _sprites.Length)
+        if (_isStart)
         {
-            index = 53;
+            return;
         }
 
-        _spriteRenderer.sprite = _sprites[index];
+        _index++;
+
+        if (_index >= _sprites.Length)
+        {
+            _index = 53;
+        }
+
+        _spriteRenderer.sprite = _sprites[_index];
     }
 }
