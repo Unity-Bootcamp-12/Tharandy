@@ -168,6 +168,23 @@ public class GameManager : MonoBehaviour
         _lifeUI.SetUI(_maxLife, _currentLife);
     }
 
+    private void DeactivateEnemies()
+    {
+        if (_activeEnemyList == null)
+        {
+            return;
+        }
+        
+        foreach (var enemy in _activeEnemyList)
+        {
+            if (enemy == null)
+            {
+                continue;
+            }
+            enemy.gameObject.SetActive(false);
+        }
+    }
+    
     public void GameLose()
     {
         if (_isLose)
@@ -176,6 +193,7 @@ public class GameManager : MonoBehaviour
         }
 
         _isLose = true;
+        DeactivateEnemies();
         _endingManager.GameLose();
         StopCoroutine(_spawnEnemyCoroutine);
     }
@@ -267,6 +285,7 @@ public class GameManager : MonoBehaviour
         }
         
         _endingManager.GameWin();
+        DeactivateEnemies();
         StopCoroutine(_spawnEnemyCoroutine);
     }
 }
