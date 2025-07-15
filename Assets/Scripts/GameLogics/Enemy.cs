@@ -97,6 +97,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(_punchingDuration);
 
+        GameManager.Instance.ReduceLife();
         GameManager.Instance.ReturnEnemyToPool(this);
     }
 }
