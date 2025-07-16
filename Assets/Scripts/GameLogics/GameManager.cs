@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     private int _currentLife;
     private int _score;
 
-    [Header("Ending")]
+    [Header("Ending")] 
     [SerializeField] private EndingManager _endingManager;
 
     private bool _isLose = false;
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
+        
         foreach (var enemy in _activeEnemyList)
         {
             if (enemy == null)
@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour
             enemy.gameObject.SetActive(false);
         }
     }
-
+    
     public void GameLose()
     {
         if (_isLose)
@@ -283,19 +283,9 @@ public class GameManager : MonoBehaviour
             _timerUI.SetText(i.ToString());
             yield return new WaitForSeconds(1f);
         }
-
+        
+        _endingManager.GameWin();
         DeactivateEnemies();
         StopCoroutine(_spawnEnemyCoroutine);
-
-        if (!_isLose)
-        {
-            _endingManager.GameWin();
-        }
-    }
-
-    public void RestartGame()
-    {
-        Debug.Log("RestartGame Clicked");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

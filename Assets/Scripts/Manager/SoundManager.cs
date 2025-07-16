@@ -43,10 +43,10 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //ì‚¬ìš´ë“œ í• ë‹¹í•˜ê¸°
+    //»ç¿îµå ÇÒ´çÇÏ±â
     void InitializeAudioClips()
     {
-        //bgm í• ë‹¹
+        //bgm ÇÒ´ç
         foreach (var bgm in bgmClipList)
         {
             if (!bgmClips.ContainsKey(bgm.name))
@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
                 bgmClips.Add(bgm.name, bgm.clip);
             }
         }
-        //íš¨ê³¼ìŒ í• ë‹¹
+        //È¿°úÀ½ ÇÒ´ç
         foreach (var sfx in sfxClipList)
         {
             if (!sfxClips.ContainsKey(sfx.name))
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
     {
         if (bgmClips.ContainsKey(name))
         {
-            //ì½”ë£¨í‹´ ì •ì§€
+            //ÄÚ·çÆ¾ Á¤Áö
             if (currentBGMCoroutine != null)
             {
                 StopCoroutine(currentBGMCoroutine);
@@ -83,33 +83,33 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //íš¨ê³¼ìŒ ì¬ìƒ
+    //È¿°úÀ½ Àç»ı
     public void PlaySfx(string name)
     {
         sfxSource.PlayOneShot(sfxClips[name]);
     }
 
 
-    //ë³¼ë¥¨ ì¡°ì ˆ
+    //º¼·ı Á¶Àı
     public void SetBGMVolume(float volume)
     {
         bgmSource.volume = Mathf.Clamp(volume, 0, 1);
-        Debug.Log("ì‚¬ìš´ë“œ ë§¤ë‹ˆì € BGM :  " + volume);
+        Debug.Log("»ç¿îµå ¸Å´ÏÀú BGM :  " + volume);
     }
 
-    //ë³¼ë¥¨ ì¡°ì ˆ
+    //º¼·ı Á¶Àı
     public void SetSfxVolume(float volume)
     {
         sfxSource.volume = Mathf.Clamp(volume, 0, 1);
     }
 
-    //bgm ì¤‘ì§€
+    //bgm ÁßÁö
     public void StopBGM()
     {
         bgmSource.Stop();
     }
 
-    //sfx ì¤‘ì§€
+    //sfx ÁßÁö
     public void StopSfx()
     {
         sfxSource.Stop();

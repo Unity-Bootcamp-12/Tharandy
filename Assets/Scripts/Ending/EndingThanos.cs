@@ -30,14 +30,9 @@ public class EndingThanos: MonoBehaviour
                 _isAlreadySnap = true;
                 _animator.SetTrigger("IsEnd");
                 SoundManager.Instance.PlaySfx("ThanosFinger");
-                StartCoroutine(C_WaitFingerSnap());
             }
         }
     }
-
-    private IEnumerator C_WaitFingerSnap()
-    {
-        yield return new WaitForSeconds(1.5f);
-        UIManager.Instance.ShowEndingPanel(false);
-    }
+    
+    
 }
