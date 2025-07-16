@@ -107,10 +107,13 @@ public class UIManager : MonoBehaviour
         _newCurtains.Add(alembicPlayerController);
         _newCurtains.Add(alembicPlayerController2);
         SetCurtain(false);
+        SoundManager.Instance.PlayBGM("Title");
     }
 
     public void OnStartButtonClick()
     {
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM("InGame");
         _thanosAnimator.SetBool(_thanosDanceBoolean, true);
         _titleMainPanel.SetActive(false);
         //_curtainsAnimator.SetTrigger(_curtainOpenTrigger);

@@ -12,6 +12,8 @@ public class EndingManager : MonoBehaviour
     public void GameWin()
     {
         _inGameCanvas.enabled = false;
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM("Win");
         foreach (GameObject winPrefab in _winPrefabs)
         {
             Instantiate(winPrefab);
@@ -20,6 +22,8 @@ public class EndingManager : MonoBehaviour
     public void GameLose()
     {
         _inGameCanvas.enabled = false;
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM("Lose");
         foreach (GameObject defeatPrefab in _defeatPrefabs)
         {
             EndingThanos endingThanos = Instantiate(defeatPrefab, _spawnPoint.localPosition, _spawnPoint.rotation).GetComponent<EndingThanos>();
