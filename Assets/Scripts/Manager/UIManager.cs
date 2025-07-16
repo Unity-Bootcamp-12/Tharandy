@@ -26,7 +26,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _loseImage;
     [SerializeField] private GameObject _buttonGroup;
     [SerializeField] private Button _buttonRestart;
-    [SerializeField] private Button _buttonRank;
     [SerializeField] private Button _buttonExit;
 
     [SerializeField] private Animator _curtainsAnimator;
@@ -133,18 +132,12 @@ public class UIManager : MonoBehaviour
             _buttonRestart = GameObject.Find("ButtonRestart").GetComponent<Button>();
         }
 
-        if (_buttonRestart == null)
-        {
-            _buttonRank = GameObject.Find("ButtonRanking").GetComponent<Button>();
-        }
-
         if (_buttonExit == null)
         {
             _buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
         }
 
         _buttonRestart.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
-        _buttonRank.onClick.AddListener(() => { GameManager.Instance.ShowRankingUI(); });
         _buttonExit.onClick.AddListener(() => { Application.Quit(); });
 
         GameObject alembicPlayerController = GameObject.Find("StageCurtainL");
