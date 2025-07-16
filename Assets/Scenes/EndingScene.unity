@@ -329,6 +329,38 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1686958915026401581, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028967543165871305, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604389940534276664, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693682291364599326, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323936680170048506, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415340209020350428, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078572152836341764, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5565228124114853344, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6872621862761584735, guid: da260ccc5edd83b43a5207e002b159a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1672,12 +1704,14 @@ MonoBehaviour:
   _countDownUI: {fileID: 281836334}
   _scoreUI: {fileID: 865286832}
   _lifeUI: {fileID: 0}
+  _rankingUI: {fileID: 0}
   _enemySpawnRangeX: {x: -9, y: 9}
   _enemySpawnRangeY: {x: -4, y: 4}
   _enemySpawnPointCount: 12
   _enemySpawnInterval: 3
   _playTime: 1
   _maxLife: 3
+  _endingManager: {fileID: 0}
 --- !u!1 &1252050679
 GameObject:
   m_ObjectHideFlags: 0
