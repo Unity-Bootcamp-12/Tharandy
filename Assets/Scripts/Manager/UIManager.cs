@@ -97,10 +97,14 @@ public class UIManager : MonoBehaviour
         {
             _thanosAnimator = _babyThanos.GetComponent<Animator>();
         }
+
+        SoundManager.Instance.PlayBGM("Title");
     }
 
     public void OnStartButtonClick()
     {
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM("InGame");
         _thanosAnimator.SetBool(_thanosDanceBoolean, true);
         _titleMainPanel.SetActive(false);
         _curtainsAnimator.SetTrigger(_curtainOpenTrigger);

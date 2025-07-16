@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
         if (_modelAnimator != null)
         {
             _modelAnimator.SetTrigger(HIT_ANIMATION);
+            SoundManager.Instance.PlaySfx("ThanosHit");
             yield return new WaitForSeconds(_modelAnimator.GetCurrentAnimatorStateInfo(0).length);
         }
 
@@ -96,6 +97,7 @@ public class Enemy : MonoBehaviour
         _modelAnimator.SetTrigger(PUNCHING_ANIMATION);
 
         yield return new WaitForSeconds(_punchingDuration);
+        SoundManager.Instance.PlaySfx("ThanosPunch");
 
         GameManager.Instance.ReduceLife();
         GameManager.Instance.ReturnEnemyToPool(this);
