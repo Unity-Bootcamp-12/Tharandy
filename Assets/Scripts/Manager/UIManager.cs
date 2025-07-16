@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
     readonly int IS_DANCING = Animator.StringToHash("IsDancing");
     private Image _fadeImage;
 
+    [SerializeField] private List<GameObject> _newCurtains;
 
     private void Awake()
     {
@@ -46,6 +48,8 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _newCurtains = new List<GameObject>();
     }
 
     private void Start()
@@ -136,6 +140,11 @@ public class UIManager : MonoBehaviour
         _buttonRestart.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
         _buttonExit.onClick.AddListener(() => { Application.Quit(); });
 
+        GameObject alembicPlayerController = GameObject.Find("StageCurtainL");
+        GameObject alembicPlayerController2 = GameObject.Find("StageCurtainR");
+        _newCurtains.Add(alembicPlayerController);
+        _newCurtains.Add(alembicPlayerController2);
+        SetCurtain(false);
         SoundManager.Instance.PlayBGM("Title");
     }
 
@@ -145,9 +154,9 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlayBGM("InGame");
         _thanosAnimator.SetBool(IS_DANCING, true);
         _titleMainPanel.SetActive(false);
-        _curtainsAnimator.SetTrigger(CURTAIN_OPEN);
 
         StartCoroutine(WaitForCurtainAnimationAndStartGame());
+        SetCurtain(true);
     }
 
     private IEnumerator WaitForCurtainAnimationAndStartGame()
@@ -249,5 +258,15 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         _loseImage.SetActive(true);
         _buttonGroup.SetActive(true);
+    private void SetCurtain(bool flag)
+    {
+        foreach (var curtain in _newCurtains)
+        {
+            if (curtain != null)
+            {
+                AlembicPlayerController controller = curtain.GetComponent<AlembicPlayerController>();
+                controller.enabled = flag;
+            }
+        }
     }
 }

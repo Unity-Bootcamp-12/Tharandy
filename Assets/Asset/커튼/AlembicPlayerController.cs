@@ -15,7 +15,9 @@ public class AlembicPlayerController : MonoBehaviour
 
             // 루프 처리
             if (currentTime > streamPlayer.Duration)
-                currentTime = 0f;
+            { 
+                currentTime = 0f; 
+            }
 
             streamPlayer.UpdateImmediately(currentTime);
         }

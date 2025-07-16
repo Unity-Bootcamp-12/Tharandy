@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextChangeUI _countDownUI;
     [SerializeField] private TextChangeUI _scoreUI;
     [SerializeField] private LifeUI _lifeUI;
+    [SerializeField] private RankingUI _rankingUI;
 
     [SerializeField] private Vector2 _enemySpawnRangeX = new(-4.5f, 4.5f);
     [SerializeField] private Vector2 _enemySpawnRangeY = new(-2.0f, 2.0f);
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         _scoreUI.gameObject.SetActive(false);
         _lifeUI.gameObject.SetActive(false);
         _lifeUI.SetUI(_maxLife, _maxLife);
+        _rankingUI.gameObject.SetActive(false);
 
         _score = 0;
         _currentLife = _maxLife;
@@ -196,6 +198,14 @@ public class GameManager : MonoBehaviour
         DeactivateEnemies();
         _endingManager.GameLose();
         StopCoroutine(_spawnEnemyCoroutine);
+        RankingManager.Instance.AddScore(_score);
+        ShowRankingUI();
+    }
+
+    private void ShowRankingUI()
+    { 
+        _rankingUI.gameObject.SetActive(true);
+        _rankingUI.SetRankingScore(RankingManager.Instance.GetScores());
     }
 
     private void Update()
