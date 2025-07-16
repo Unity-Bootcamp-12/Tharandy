@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     readonly int _thanosAyaTrigger = Animator.StringToHash("Thanos_Aya");
     readonly int _thanosFingersnapTrigger = Animator.StringToHash("Thanos_Fingersnap");
 
+    [SerializeField] private List<GameObject> _newCurtains;
 
     private void Awake()
     {
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _newCurtains = new List<GameObject>();
     }
 
     private void Start()
@@ -97,15 +101,23 @@ public class UIManager : MonoBehaviour
         {
             _thanosAnimator = _babyThanos.GetComponent<Animator>();
         }
+
+        GameObject alembicPlayerController = GameObject.Find("StageCurtainL");
+        GameObject alembicPlayerController2 = GameObject.Find("StageCurtainR");
+        _newCurtains.Add(alembicPlayerController);
+        _newCurtains.Add(alembicPlayerController2);
+        SetCurtain(false);
     }
 
     public void OnStartButtonClick()
     {
         _thanosAnimator.SetBool(_thanosDanceBoolean, true);
         _titleMainPanel.SetActive(false);
-        _curtainsAnimator.SetTrigger(_curtainOpenTrigger);
+        //_curtainsAnimator.SetTrigger(_curtainOpenTrigger);
 
         StartCoroutine(WaitForCurtainAnimationAndStartGame());
+        SetCurtain(true);
+
     }
 
     private IEnumerator WaitForCurtainAnimationAndStartGame()
@@ -162,5 +174,17 @@ public class UIManager : MonoBehaviour
     public void OnSettingsButtonClick()
     {
         Application.Quit();
+    }
+
+    private void SetCurtain(bool flag)
+    {
+        foreach (var curtain in _newCurtains)
+        {
+            if (curtain != null)
+            {
+                AlembicPlayerController controller = curtain.GetComponent<AlembicPlayerController>();
+                controller.enabled = flag;
+            }
+        }
     }
 }
