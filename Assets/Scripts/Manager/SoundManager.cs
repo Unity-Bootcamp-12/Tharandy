@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public NamedAudioClip[] bgmClipList;
-    public NamedAudioClip[] sfxClipList;    
+    public NamedAudioClip[] sfxClipList;
 
     private Coroutine currentBGMCoroutine;
 
