@@ -258,6 +258,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         _loseImage.SetActive(true);
         _buttonGroup.SetActive(true);
+    }
+
     private void SetCurtain(bool flag)
     {
         foreach (var curtain in _newCurtains)
