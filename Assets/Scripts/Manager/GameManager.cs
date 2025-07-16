@@ -199,10 +199,9 @@ public class GameManager : MonoBehaviour
         _endingManager.GameLose();
         StopCoroutine(_spawnEnemyCoroutine);
         RankingManager.Instance.AddScore(_score);
-        ShowRankingUI();
     }
 
-    private void ShowRankingUI()
+    public void ShowRankingUI()
     { 
         _rankingUI.gameObject.SetActive(true);
         _rankingUI.SetRankingScore(RankingManager.Instance.GetScores());
