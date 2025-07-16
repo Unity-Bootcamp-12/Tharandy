@@ -95,9 +95,8 @@ public class Enemy : MonoBehaviour
         _enemyModel.position = targetPosition;
 
         _modelAnimator.SetTrigger(PUNCHING_ANIMATION);
-
+        
         yield return new WaitForSeconds(_punchingDuration);
-        SoundManager.Instance.PlaySfx("ThanosPunch");
 
         GameManager.Instance.ReduceLife();
         GameManager.Instance.ReturnEnemyToPool(this);

@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public NamedAudioClip[] bgmClipList;
-    public NamedAudioClip[] sfxClipList;    
+    public NamedAudioClip[] sfxClipList;
 
     private Coroutine currentBGMCoroutine;
 
@@ -43,10 +43,10 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //»ç¿îµå ÇÒ´çÇÏ±â
+    //ì‚¬ìš´ë“œ í• ë‹¹í•˜ê¸°
     void InitializeAudioClips()
     {
-        //bgm ÇÒ´ç
+        //bgm í• ë‹¹
         foreach (var bgm in bgmClipList)
         {
             if (!bgmClips.ContainsKey(bgm.name))
@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
                 bgmClips.Add(bgm.name, bgm.clip);
             }
         }
-        //È¿°úÀ½ ÇÒ´ç
+        //íš¨ê³¼ìŒ í• ë‹¹
         foreach (var sfx in sfxClipList)
         {
             if (!sfxClips.ContainsKey(sfx.name))
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
     {
         if (bgmClips.ContainsKey(name))
         {
-            //ÄÚ·çÆ¾ Á¤Áö
+            //ì½”ë£¨í‹´ ì •ì§€
             if (currentBGMCoroutine != null)
             {
                 StopCoroutine(currentBGMCoroutine);
@@ -83,33 +83,33 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //È¿°úÀ½ Àç»ı
+    //íš¨ê³¼ìŒ ì¬ìƒ
     public void PlaySfx(string name)
     {
         sfxSource.PlayOneShot(sfxClips[name]);
     }
 
 
-    //º¼·ı Á¶Àı
+    //ë³¼ë¥¨ ì¡°ì ˆ
     public void SetBGMVolume(float volume)
     {
         bgmSource.volume = Mathf.Clamp(volume, 0, 1);
-        Debug.Log("»ç¿îµå ¸Å´ÏÀú BGM :  " + volume);
+        Debug.Log("ì‚¬ìš´ë“œ ë§¤ë‹ˆì € BGM :  " + volume);
     }
 
-    //º¼·ı Á¶Àı
+    //ë³¼ë¥¨ ì¡°ì ˆ
     public void SetSfxVolume(float volume)
     {
         sfxSource.volume = Mathf.Clamp(volume, 0, 1);
     }
 
-    //bgm ÁßÁö
+    //bgm ì¤‘ì§€
     public void StopBGM()
     {
         bgmSource.Stop();
     }
 
-    //sfx ÁßÁö
+    //sfx ì¤‘ì§€
     public void StopSfx()
     {
         sfxSource.Stop();
