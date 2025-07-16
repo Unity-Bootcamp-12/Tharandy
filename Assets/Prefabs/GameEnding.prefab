@@ -316,9 +316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game
-
-    Restart'
+  m_text: Ranking
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}
   m_sharedMaterial: {fileID: -1703462050186533620, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}
@@ -728,9 +726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Quit
-
-    Game'
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}
   m_sharedMaterial: {fileID: -1703462050186533620, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}
@@ -944,9 +940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game
-
-    Restart'
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}
   m_sharedMaterial: {fileID: -1703462050186533620, guid: f4b2a1e38a66fb24dbb3223343057bac, type: 2}

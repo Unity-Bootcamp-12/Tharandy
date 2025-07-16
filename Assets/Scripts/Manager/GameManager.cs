@@ -298,6 +298,7 @@ public class GameManager : MonoBehaviour
 
         if (!_isLose)
         {
+            RankingManager.Instance.AddScore(_score);
             _endingManager.GameWin();
         }
     }
