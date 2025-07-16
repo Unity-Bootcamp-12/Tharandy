@@ -29,7 +29,15 @@ public class EndingThanos: MonoBehaviour
             {
                 _isAlreadySnap = true;
                 _animator.SetTrigger("IsEnd");
+
+                StartCoroutine(C_WaitFingerSnap());
             }
         }
+    }
+
+    private IEnumerator C_WaitFingerSnap()
+    {
+        yield return new WaitForSeconds(1.5f);
+        UIManager.Instance.ShowEndingPanel(false);
     }
 }

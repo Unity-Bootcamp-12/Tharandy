@@ -13,7 +13,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Button _buttonStart;
     [SerializeField] private Button _buttonQuit;
-    [SerializeField] private Button _buttonSettings;
 
     [SerializeField] private GameObject _fadeinPanel;
     [SerializeField] private GameObject _gameTitleCanvas;
@@ -21,15 +20,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _curtains;
     [SerializeField] private GameObject _titleMainPanel;
 
+    [SerializeField] private GameObject _gameEndingObject;
+    [SerializeField] private GameObject _losePanel;
+    [SerializeField] private GameObject _winPanel;
+    [SerializeField] private GameObject _loseImage;
+    [SerializeField] private GameObject _buttonGroup;
+    [SerializeField] private Button _buttonRestart;
+    [SerializeField] private Button _buttonExit;
+
     [SerializeField] private Animator _curtainsAnimator;
     [SerializeField] private Animator _thanosAnimator;
 
     private float _fadeDuration = 2.0f;
-    readonly int _curtainOpenTrigger = Animator.StringToHash("CurtainOpen");
-    readonly int _curtainCloseTrigger = Animator.StringToHash("CurtainClose");
-    readonly int _thanosDanceBoolean = Animator.StringToHash("IsDancing");
-    readonly int _thanosAyaTrigger = Animator.StringToHash("Thanos_Aya");
-    readonly int _thanosFingersnapTrigger = Animator.StringToHash("Thanos_Fingersnap");
+    readonly int CURTAIN_OPEN = Animator.StringToHash("CurtainOpen");
+    readonly int IS_DANCING = Animator.StringToHash("IsDancing");
+    private Image _fadeImage;
 
     [SerializeField] private List<GameObject> _newCurtains;
 
@@ -71,11 +76,11 @@ public class UIManager : MonoBehaviour
             _buttonQuit.onClick.AddListener(OnQuitButtonClick);
         }
 
-        if (_buttonSettings == null)
-        {
-            _buttonSettings = GameObject.Find("ButtonSettings").GetComponent<Button>();
-            _buttonSettings.onClick.AddListener(OnSettingsButtonClick);
-        }
+        //if (_buttonSettings == null)
+        //{
+        //    _buttonSettings = GameObject.Find("ButtonSettings").GetComponent<Button>();
+        //    _buttonSettings.onClick.AddListener(OnSettingsButtonClick);
+        //}
 
         if (_titleMainPanel == null)
         {
@@ -90,7 +95,7 @@ public class UIManager : MonoBehaviour
         if (_curtains == null)
         {
             _curtains = GameObject.Find("Curtains");
-        }   
+        }
 
         if (_curtainsAnimator == null && _curtains != null)
         {
@@ -101,6 +106,39 @@ public class UIManager : MonoBehaviour
         {
             _thanosAnimator = _babyThanos.GetComponent<Animator>();
         }
+
+        if (_gameEndingObject == null)
+        {
+            _gameEndingObject = GameObject.Find("GameEnding");
+        }
+
+        if (_losePanel == null)
+        {
+            _losePanel = GameObject.Find("LosePanel");
+        }
+
+        if (_winPanel == null)
+        {
+            _winPanel = GameObject.Find("WinPanel");
+        }
+
+        if (_buttonGroup == null)
+        {
+            _buttonGroup = GameObject.Find("ButtonGroup");
+        }
+
+        if (_buttonRestart == null)
+        {
+            _buttonRestart = GameObject.Find("ButtonRestart").GetComponent<Button>();
+        }
+
+        if (_buttonExit == null)
+        {
+            _buttonExit = GameObject.Find("ButtonExit").GetComponent<Button>();
+        }
+
+        _buttonRestart.onClick.AddListener(() => { GameManager.Instance.RestartGame(); });
+        _buttonExit.onClick.AddListener(() => { Application.Quit(); });
 
         GameObject alembicPlayerController = GameObject.Find("StageCurtainL");
         GameObject alembicPlayerController2 = GameObject.Find("StageCurtainR");
@@ -114,13 +152,11 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.Instance.StopBGM();
         SoundManager.Instance.PlayBGM("InGame");
-        _thanosAnimator.SetBool(_thanosDanceBoolean, true);
+        _thanosAnimator.SetBool(IS_DANCING, true);
         _titleMainPanel.SetActive(false);
-        //_curtainsAnimator.SetTrigger(_curtainOpenTrigger);
 
         StartCoroutine(WaitForCurtainAnimationAndStartGame());
         SetCurtain(true);
-
     }
 
     private IEnumerator WaitForCurtainAnimationAndStartGame()
@@ -156,7 +192,7 @@ public class UIManager : MonoBehaviour
 
         if (_babyThanos != null)
         {
-            _thanosAnimator.SetBool(_thanosDanceBoolean, false);
+            _thanosAnimator.SetBool(IS_DANCING, false);
             _babyThanos.SetActive(false);
         }
 
@@ -179,6 +215,49 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ShowEndingPanel(bool isWin)
+    {
+        _gameEndingObject.SetActive(true);
+
+        if (isWin)
+        {
+            _winPanel.SetActive(true);
+            _losePanel.SetActive(false);
+            _fadeImage = GameObject.Find("WinBackground").GetComponent<Image>();
+        }
+        else
+        {
+            _winPanel.SetActive(false);
+            _losePanel.SetActive(true);
+            _fadeImage = GameObject.Find("LoseBackground").GetComponent<Image>();
+        }
+
+        StartCoroutine(C_FadeInPanel(_fadeImage));
+    }
+
+    private IEnumerator C_FadeInPanel(Image fadeInImage)
+    {
+        Color color = fadeInImage.color;
+        color.a = 0f;
+        fadeInImage.color = color;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Clamp01(elapsedTime / _fadeDuration);
+            color.a = alpha;
+            fadeInImage.color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeInImage.color = color;
+
+        yield return new WaitForSeconds(1.0f);
+        _loseImage.SetActive(true);
+        _buttonGroup.SetActive(true);
     private void SetCurtain(bool flag)
     {
         foreach (var curtain in _newCurtains)
