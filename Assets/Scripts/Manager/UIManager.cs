@@ -71,11 +71,11 @@ public class UIManager : MonoBehaviour
             _buttonQuit.onClick.AddListener(OnQuitButtonClick);
         }
 
-        if (_buttonSettings == null)
-        {
-            _buttonSettings = GameObject.Find("ButtonSettings").GetComponent<Button>();
-            _buttonSettings.onClick.AddListener(OnSettingsButtonClick);
-        }
+        // if (_buttonSettings == null)
+        // {
+        //     _buttonSettings = GameObject.Find("ButtonSettings").GetComponent<Button>();
+        //     _buttonSettings.onClick.AddListener(OnSettingsButtonClick);
+        // }
 
         if (_titleMainPanel == null)
         {
