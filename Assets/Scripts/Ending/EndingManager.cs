@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class EndingManager : MonoBehaviour
@@ -18,7 +19,15 @@ public class EndingManager : MonoBehaviour
         {
             Instantiate(winPrefab);
         }
+        StartCoroutine(C_WaitForEnding());
     }
+
+    private IEnumerator C_WaitForEnding()
+    {
+        yield return new WaitForSeconds(2.0f);
+        UIManager.Instance.ShowEndingPanel(true);
+    }
+
     public void GameLose()
     {
         _inGameCanvas.enabled = false;
