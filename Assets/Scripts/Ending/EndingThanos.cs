@@ -29,6 +29,7 @@ public class EndingThanos: MonoBehaviour
             {
                 _isAlreadySnap = true;
                 _animator.SetTrigger("IsEnd");
+                SoundManager.Instance.PlaySfx("ThanosFinger");
             }
         }
     }
