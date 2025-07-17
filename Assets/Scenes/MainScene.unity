@@ -977,7 +977,7 @@ MonoBehaviour:
   _enemySpawnRangeY: {x: -4, y: 4}
   _enemySpawnPointCount: 12
   _enemySpawnInterval: 3
-  _playTime: 2
+  _playTime: 60
   _maxLife: 6
   _endingManager: {fileID: 1330691782}
 --- !u!1001 &1312062189
