@@ -120,11 +120,11 @@ public class GameManager : MonoBehaviour
     {
         Enemy enemy = GetEnemyFromPool();
         enemy.transform.position = _enemySpawnPointList[spawnPointIndex].position;
-        Debug.Log($"enemy : {enemy.transform.position}");
         _activeEnemyList[spawnPointIndex] = enemy;
         enemy.SpawnPointIndex = spawnPointIndex;
+        enemy.IsDead = false;
         enemy.gameObject.SetActive(true);
-
+        
         return true;
     }
 
@@ -214,9 +214,10 @@ public class GameManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
+                if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy) && enemy.IsDead == false)
                 {
                     enemy.Hit();
+                    enemy.IsDead = true;
                 }
             }
         }

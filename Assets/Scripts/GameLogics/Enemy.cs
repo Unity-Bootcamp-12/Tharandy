@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour
     private Vector3 _startPosition;
 
     public int SpawnPointIndex { get; set; }
-
+    public bool IsDead { get; set; }
+    
     private Coroutine _currentCoroutine;
 
     private void Awake()
