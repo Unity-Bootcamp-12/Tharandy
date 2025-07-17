@@ -977,7 +977,7 @@ MonoBehaviour:
   _enemySpawnRangeY: {x: -4, y: 4}
   _enemySpawnPointCount: 12
   _enemySpawnInterval: 3
-  _playTime: 60
+  _playTime: 2
   _maxLife: 6
   _endingManager: {fileID: 1330691782}
 --- !u!1001 &1312062189
@@ -1347,9 +1347,53 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159413387934744168, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067590621289532353, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7389224277088878546, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546290326323650960, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546290326323650960, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546290326323650960, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546290326323650960, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878286357081449757, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1357,6 +1401,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878286357081449757, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253573383712416370, guid: 7457c35711fff934990dd704c0ecb4e4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
